@@ -29,6 +29,7 @@ export default function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [selectedSong, setSelectedSong] = useState<typeof SONGS[0] | null>(null);
   const [showWelcome, setShowWelcome] = useState(true);
+  const welcomeAudioRef = useRef<HTMLAudioElement | null>(null);
   const [songSelectionScreen, setSongSelectionScreen] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [currentSongNumber, setCurrentSongNumber] = useState(1);
@@ -423,9 +424,32 @@ export default function App() {
   };
 
   const dismissWelcome = () => {
+    // Stop welcome screen music
+    if (welcomeAudioRef.current) {
+      welcomeAudioRef.current.pause();
+      welcomeAudioRef.current.currentTime = 0;
+    }
     setShowWelcome(false);
     setSongSelectionScreen(true);
   };
+
+  // Play music on welcome screen
+  useEffect(() => {
+    if (showWelcome) {
+      const audio = new Audio(`${BASE_URL}Songs/phlb13d1_02_Run_Like_An_Antelope.mp3`);
+      audio.volume = 0.5; // Lower volume for background music
+      audio.loop = true;
+      audio.play().catch(() => {
+        // Auto-play might be blocked, that's okay
+      });
+      welcomeAudioRef.current = audio;
+
+      return () => {
+        audio.pause();
+        audio.currentTime = 0;
+      };
+    }
+  }, [showWelcome]);
 
   const selectSong = (song: typeof SONGS[0]) => {
     setSelectedSong(song);
