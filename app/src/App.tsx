@@ -143,7 +143,7 @@ export default function App() {
 
       engine.onBeat((beat) => {
         setBeatIndicator(true);
-        setTimeout(() => setBeatIndicator(false), 100);
+        setTimeout(() => setBeatIndicator(false), 150);
       });
 
       // Detect song ending
@@ -174,7 +174,8 @@ export default function App() {
   const handleSongEnd = () => {
     // Save final stats
     setFinalCrowdScore(Math.round(crowdMeter));
-    setGoalAchieved(crowdMeter >= targetCrowd);
+    // Goal is achieved if you ever hit 100%, not just ending at 100%
+    setGoalAchieved(hasHit100);
 
     // Stop game and show results
     setGameStarted(false);
@@ -369,7 +370,7 @@ export default function App() {
         const gainMultiplier = 1 / (1 + (difficultyLevel - 1) * 0.15);
 
         if (isGoodMatch && activeLightsCount > 0 && energy > 0) {
-          change += 0.1 * gainMultiplier; // Decreases as difficulty increases
+          change += 0.05 * gainMultiplier; // Reduced so beat matching is more important
         }
 
         // Penalty for no changes (boredom)
@@ -664,8 +665,8 @@ export default function App() {
 
   const checkBeatMatch = () => {
     if (beatIndicator) {
-      // Hit on the beat! Bonus decreases with difficulty
-      const beatBonus = 3 / (1 + (difficultyLevel - 1) * 0.15);
+      // Hit on the beat! Bigger bonus, decreases with difficulty
+      const beatBonus = 5 / (1 + (difficultyLevel - 1) * 0.15);
       setCrowdMeter(prev => {
         const newValue = Math.min(100, prev + beatBonus);
         // Update rate to show the spike
