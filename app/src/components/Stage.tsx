@@ -134,7 +134,7 @@ export function Stage({
       {/* Band image with background removed */}
       <div className="band-lineup">
         <img
-          src="/sprites/band_image-removebg-preview.png"
+          src={`${import.meta.env.BASE_URL}sprites/band_image-removebg-preview.png`}
           alt="Band performing on stage"
           style={{
             width: '100%',

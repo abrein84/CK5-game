@@ -7,20 +7,22 @@ import { LightSelector } from "./components/LightSelector";
 import { CelebrationPopup } from "./components/CelebrationPopup";
 import { MusicEngine } from "./engine/musicEngine";
 
+const BASE_URL = import.meta.env.BASE_URL;
+
 const SONGS = [
-  { name: "The Wedge", file: "/Songs/phlb13d1_01_The_Wedge.mp3" },
-  { name: "Run Like An Antelope", file: "/Songs/phlb13d1_02_Run_Like_An_Antelope.mp3" },
-  { name: "Tube", file: "/Songs/phlb13d1_03_Tube.mp3" },
-  { name: "It's Ice / Kung / It's Ice", file: "/Songs/phlb13d1_04_Its_Ice__Kung__Its_Ice.mp3" },
-  { name: "Piper", file: "/Songs/phlb13d1_05_Piper.mp3" },
-  { name: "Icculus", file: "/Songs/phlb13d1_06_Icculus.mp3" },
-  { name: "Mike's Song / Swept Away / Steep / Weekapaug Groove", file: "/Songs/phlb13d1_07_Mikes_Song__Swept_Away__Steep__Weekapaug_Groove.mp3" },
-  { name: "Light / Party Time", file: "/Songs/phlb13d1_08_Light__Party_Time.mp3" },
-  { name: "Carini / Wolfman's Brother", file: "/Songs/phlb13d1_09_Carini__Wolfmans_Brother.mp3" },
-  { name: "Ghost", file: "/Songs/phlb13d1_10_Ghost.mp3" },
-  { name: "Tweezer", file: "/Songs/phlb13d1_11_Tweezer.mp3" },
-  { name: "You Enjoy Myself", file: "/Songs/phlb13d1_12_You_Enjoy_Myself.mp3" },
-  { name: "No Men In No Man's Land / Auld Lang Syne / Blaze On", file: "/Songs/phlb13d1_13_No_Men_In_No_Mans_Land__Auld_Lang_Syne__Blaze_On.mp3" },
+  { name: "The Wedge", file: `${BASE_URL}Songs/phlb13d1_01_The_Wedge.mp3` },
+  { name: "Run Like An Antelope", file: `${BASE_URL}Songs/phlb13d1_02_Run_Like_An_Antelope.mp3` },
+  { name: "Tube", file: `${BASE_URL}Songs/phlb13d1_03_Tube.mp3` },
+  { name: "It's Ice / Kung / It's Ice", file: `${BASE_URL}Songs/phlb13d1_04_Its_Ice__Kung__Its_Ice.mp3` },
+  { name: "Piper", file: `${BASE_URL}Songs/phlb13d1_05_Piper.mp3` },
+  { name: "Icculus", file: `${BASE_URL}Songs/phlb13d1_06_Icculus.mp3` },
+  { name: "Mike's Song / Swept Away / Steep / Weekapaug Groove", file: `${BASE_URL}Songs/phlb13d1_07_Mikes_Song__Swept_Away__Steep__Weekapaug_Groove.mp3` },
+  { name: "Light / Party Time", file: `${BASE_URL}Songs/phlb13d1_08_Light__Party_Time.mp3` },
+  { name: "Carini / Wolfman's Brother", file: `${BASE_URL}Songs/phlb13d1_09_Carini__Wolfmans_Brother.mp3` },
+  { name: "Ghost", file: `${BASE_URL}Songs/phlb13d1_10_Ghost.mp3` },
+  { name: "Tweezer", file: `${BASE_URL}Songs/phlb13d1_11_Tweezer.mp3` },
+  { name: "You Enjoy Myself", file: `${BASE_URL}Songs/phlb13d1_12_You_Enjoy_Myself.mp3` },
+  { name: "No Men In No Man's Land / Auld Lang Syne / Blaze On", file: `${BASE_URL}Songs/phlb13d1_13_No_Men_In_No_Mans_Land__Auld_Lang_Syne__Blaze_On.mp3` },
 ];
 
 export default function App() {
@@ -708,7 +710,7 @@ export default function App() {
         <div
           className="game-screen flex flex-col items-center justify-center gap-8 p-8"
           style={{
-            backgroundImage: 'url(/sprites/welcome%20screen%20background.webp)',
+            backgroundImage: `url(${BASE_URL}sprites/welcome%20screen%20background.webp)`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
@@ -746,7 +748,7 @@ export default function App() {
                 — Trey
               </p>
               <img
-                src="/sprites/Trey-removebg-preview.png"
+                src={`${BASE_URL}sprites/Trey-removebg-preview.png`}
                 alt="Trey"
                 style={{
                   width: '70px',

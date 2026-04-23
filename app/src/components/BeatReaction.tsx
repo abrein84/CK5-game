@@ -93,7 +93,7 @@ export function BeatReaction({ crowdMeter, crowdMeterRate, onMilestone }: BeatRe
         {showHands && crowdArms.map((arm) => (
           <img
             key={arm.id}
-            src="/sprites/Multiple_hands_in_air-removebg-preview.png"
+            src={`${import.meta.env.BASE_URL}sprites/Multiple_hands_in_air-removebg-preview.png`}
             alt="Crowd hands"
             className="crowd-arm raised"
             style={{
