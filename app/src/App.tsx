@@ -173,6 +173,11 @@ export default function App() {
   }, [gameStarted, selectedSong]);
 
   const handleSongEnd = () => {
+    // Stop music immediately
+    if (musicEngineRef.current) {
+      musicEngineRef.current.stop();
+    }
+
     // Save final stats
     setFinalCrowdScore(Math.round(crowdMeter));
     // Goal is achieved if you ever hit 100%, not just ending at 100%
@@ -1039,7 +1044,7 @@ export default function App() {
                 marginBottom: '6px',
                 lineHeight: '1.3',
               }}>
-                Editing: Grid {activeGridIndex + 1} | {selectedGridIndices.size > 1 && `${selectedGridIndices.size} grids selected | `}Ctrl+Click: multi-select | Tab: switch
+                Editing: Grid {activeGridIndex + 1} | {selectedGridIndices.size > 1 && `${selectedGridIndices.size} grids selected | `}Click grid to edit | Check boxes to apply to multiple
               </div>
             )}
             <div className="control-label">COLOR</div>

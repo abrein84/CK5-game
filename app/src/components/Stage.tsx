@@ -85,30 +85,157 @@ export function Stage({
                   left: `${gridPositions[i].x}px`,
                   top: `${gridPositions[i].y}px`,
                   width: '100px',
-                  height: '100px',
+                  height: '140px',
                   border: 'none',
                   borderRadius: '4px',
-                  overflow: 'hidden',
                   backgroundColor: 'transparent',
-                  cursor: 'pointer',
                 }}
-                onClick={(e) => onGridClick?.(i, e.ctrlKey || e.metaKey)}
               >
-                <CanvasLightGrid
-                  rows={gridConfig.rows}
-                  cols={gridConfig.cols}
-                  musicIntensity={musicIntensity}
-                  energyLevel={energyLevel}
-                  currentBeam={currentBeam}
-                  selectedIndices={getSelectedIndicesForGrid(i)}
-                  onActiveLightsChange={(lights) => onMultiActiveLightsChange?.(i, lights)}
-                  onApplyColor={(fn) => onMultiApplyColor?.(i, fn)}
-                  onApplyBeam={(fn) => onMultiApplyBeam?.(i, fn)}
-                  onApplyPulse={(fn) => onMultiApplyPulse?.(i, fn)}
-                  onForceOff={(fn) => onMultiForceOff?.(i, fn)}
-                  enableSelection={false}
-                  compactMode={true}
-                />
+                <div
+                  style={{
+                    width: '100px',
+                    height: '100px',
+                    border: activeGridIndex === i ? '2px solid #00ff00' : '1px solid rgba(255,255,255,0.3)',
+                    borderRadius: '4px',
+                    overflow: 'hidden',
+                    cursor: 'pointer',
+                    backgroundColor: 'transparent',
+                  }}
+                  onClick={() => onGridClick?.(i, false)}
+                >
+                  <CanvasLightGrid
+                    rows={gridConfig.rows}
+                    cols={gridConfig.cols}
+                    musicIntensity={musicIntensity}
+                    energyLevel={energyLevel}
+                    currentBeam={currentBeam}
+                    selectedIndices={getSelectedIndicesForGrid(i)}
+                    onActiveLightsChange={(lights) => onMultiActiveLightsChange?.(i, lights)}
+                    onApplyColor={(fn) => onMultiApplyColor?.(i, fn)}
+                    onApplyBeam={(fn) => onMultiApplyBeam?.(i, fn)}
+                    onApplyPulse={(fn) => onMultiApplyPulse?.(i, fn)}
+                    onForceOff={(fn) => onMultiForceOff?.(i, fn)}
+                    enableSelection={false}
+                    compactMode={true}
+                  />
+                </div>
+
+                {/* Grid controls */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginTop: '2px',
+                  padding: '2px',
+                  backgroundColor: 'rgba(0,0,0,0.7)',
+                  borderRadius: '4px',
+                }}>
+                  {/* Checkbox for multi-selection */}
+                  <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      onGridClick?.(i, true);
+                    }}
+                    style={{
+                      width: '14px',
+                      height: '14px',
+                      cursor: 'pointer',
+                      accentColor: '#00ff00',
+                    }}
+                    title="Include in multi-selection"
+                  />
+
+                  {/* Arrow controls */}
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gap: '1px',
+                    width: '60px',
+                  }}>
+                    <div></div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+                        window.dispatchEvent(event);
+                      }}
+                      style={{
+                        fontSize: '10px',
+                        padding: '2px',
+                        backgroundColor: 'rgba(255,255,255,0.2)',
+                        border: '1px solid rgba(255,255,255,0.3)',
+                        borderRadius: '2px',
+                        cursor: 'pointer',
+                        color: 'white',
+                      }}
+                      title="Move up"
+                    >↑</button>
+                    <div></div>
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const event = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
+                        window.dispatchEvent(event);
+                      }}
+                      style={{
+                        fontSize: '10px',
+                        padding: '2px',
+                        backgroundColor: 'rgba(255,255,255,0.2)',
+                        border: '1px solid rgba(255,255,255,0.3)',
+                        borderRadius: '2px',
+                        cursor: 'pointer',
+                        color: 'white',
+                      }}
+                      title="Move left"
+                    >←</button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const event = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+                        window.dispatchEvent(event);
+                      }}
+                      style={{
+                        fontSize: '10px',
+                        padding: '2px',
+                        backgroundColor: 'rgba(255,255,255,0.2)',
+                        border: '1px solid rgba(255,255,255,0.3)',
+                        borderRadius: '2px',
+                        cursor: 'pointer',
+                        color: 'white',
+                      }}
+                      title="Move down"
+                    >↓</button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+                        window.dispatchEvent(event);
+                      }}
+                      style={{
+                        fontSize: '10px',
+                        padding: '2px',
+                        backgroundColor: 'rgba(255,255,255,0.2)',
+                        border: '1px solid rgba(255,255,255,0.3)',
+                        borderRadius: '2px',
+                        cursor: 'pointer',
+                        color: 'white',
+                      }}
+                      title="Move right"
+                    >→</button>
+                  </div>
+
+                  {/* Grid label */}
+                  <span style={{
+                    fontSize: '10px',
+                    color: activeGridIndex === i ? '#00ff00' : 'rgba(255,255,255,0.6)',
+                    fontWeight: activeGridIndex === i ? 'bold' : 'normal',
+                  }}>
+                    {i + 1}
+                  </span>
+                </div>
               </div>
             );
           })
