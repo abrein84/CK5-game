@@ -4,6 +4,7 @@ import { fileURLToPath, URL } from "node:url";
 
 export default defineConfig({
   root: "app",
+  base: "/CK5-game/",
   plugins: [react()],
   publicDir: "../data",
   resolve: {
